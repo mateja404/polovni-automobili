@@ -1,0 +1,27 @@
+{
+    "LoginPage": {
+        "title": "Used Cars",
+        "secondtitle": "Login",
+        "paragraph": "Enter your email and password to proceed",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "forgotPasswordAnchor": "Forgot password?",
+        "loginButton": "Login",
+        "orcontinuetext": "Or continue",
+        "googleauthbutton": "Continue with Google",
+        "donthaveacc": "Don't have account?",
+        "registeranchor": "Register now"
+    },
+    "RegisterPage": {
+        "title": "Used Cars",
+        "secondtitle": "Register",
+        "paragraph": "Enter your email and password to proceed",
+        "emailLabel": "Email",
+        "registerButton": "Register",
+        "googleauthbutton": "Continue with Google",
+        "alreadyhaveacc": "Already have account?",
+        "registeranchor": "Login",
+        "tosCheckbox": "Agree to Terms and Conditions",
+        "ageConfirmCheckbox": "I confirm that I am a person who is over 15 years old"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "LoginPage": {
+        "title": "Polovni Automobili",
+        "secondtitle": "Prijavite se",
+        "paragraph": "Unesite Vaš email i lozinku da biste nastavili",
+        "emailLabel": "Email",
+        "passwordLabel": "Lozinka",
+        "forgotPasswordAnchor": "Zaboravili ste lozinku?",
+        "loginButton": "Prijavite se",
+        "orcontinuetext": "Ili nastavi",
+        "googleauthbutton": "Nastavi Google nalogom",
+        "donthaveacc": "Još uvek nemate nalog?",
+        "registeranchor": "Registrujte se"
+    },
+    "RegisterPage": {
+        "title": "Polovni Automobili",
+        "secondtitle": "Registracija",
+        "paragraph": "Unesite Vaš email i lozinku da biste nastavili",
+        "emailLabel": "Email",
+        "registerButton": "Registruj se",
+        "googleauthbutton": "Nastavi sa Google nalogom",
+        "alreadyhaveacc": "Već imaš nalog?",
+        "registeranchor": "Prijavi se",
+        "tosCheckbox": "Prihvatam uslove korišćenja",
+        "ageConfirmCheckbox": "Potvrđujem da sam lice koje je starije od 15 godina"
+    }
+}
