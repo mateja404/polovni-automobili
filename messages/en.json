@@ -23,5 +23,13 @@
         "registeranchor": "Login",
         "tosCheckbox": "Agree to Terms and Conditions",
         "ageConfirmCheckbox": "I confirm that I am a person who is over 15 years old"
+    },
+    "ForgotPasswordPage": {
+        "title": "Used Cars",
+        "subtitle": "Fill out the form to reset your password",
+        "donthaveacc": "Don't have account?",
+        "anchor": "Register now",
+        "button": "Send reset link",
+        "placeholder": "m@example.com"
     }
 }

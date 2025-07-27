@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import { authFetch } from "./authFetch"
 
 export const getProfile = async () => {
@@ -7,19 +6,18 @@ export const getProfile = async () => {
     return result;
 }
 
-export const sendBodyReq = async (email: string) => { // This 'email' parameter should be used
+export const sendForgotPwEmail = async (email: string) => {
     const response = await authFetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/changepw`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            email: email // Use the 'email' parameter passed to the function
+            email: email
         })
     });
 
     if (!response.ok) {
-        // Ovde možete dobiti tekst greške ako postoji
         const errorText = await response.text();
         throw new Error(`Server error: ${response.status} - ${errorText}`);
     }
@@ -27,3 +25,23 @@ export const sendBodyReq = async (email: string) => { // This 'email' parameter 
     const result = await response.json();
     return result;
 };
+
+export const submitNewPassword = async (newPassword: string) => {
+    const response = await authFetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/submitnewpassword`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            newPassword: newPassword
+        })
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server error: ${response.status} - ${errorText}`);
+    }
+
+    const result = await response.json();
+    return result;
+}

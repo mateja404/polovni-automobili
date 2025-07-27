@@ -23,5 +23,13 @@
         "registeranchor": "Prijavi se",
         "tosCheckbox": "Prihvatam uslove korišćenja",
         "ageConfirmCheckbox": "Potvrđujem da sam lice koje je starije od 15 godina"
+    },
+    "ForgotPasswordPage": {
+        "title": "Polovni Automobili",
+        "subtitle": "Popunite formu da biste resetovali lozinku",
+        "donthaveacc": "Još uvek nemaš nalog?",
+        "anchor": "Registruj se",
+        "button": "Pošalji link za resetovanje lozinke",
+        "placeholder": "moje@ime.com"
     }
 }
