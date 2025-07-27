@@ -10,14 +10,15 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-function ForgotPasswordPage({className, ...props }: React.ComponentProps<"div">) {
-    const t = useTranslations("ForgotPasswordPage");
-    const [email, setEmail] = useState<string>("");
+const page = () => {
+    const t = useTranslations("ResetPasswordPage");
+    const [password, setPassword] = useState<string>("");
+    const [confirmedPassword, setConfirmedPassword] = useState<string>("");
 
     async function handleOnSubmit(e: any) {
         e.preventDefault();
         try {
-            const res = await axios.post("/api/submitemail", { email });
+            const res = await axios.post("/api/changepw", { password });
             toast.success(res.data.message.message);
         } catch (error) {
             console.log(error);
@@ -41,23 +42,28 @@ function ForgotPasswordPage({className, ...props }: React.ComponentProps<"div">)
                     </div>
                     <div className="flex flex-col gap-6">
                         <div className="grid gap-3">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder={t("placeholder")}
-                            className="focus-visible:ring-0"
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
+                            <Label htmlFor="password">{t("label")}</Label>
+                            <Input
+                                id="password"
+                                type="password"
+                                placeholder="******"
+                                className="focus-visible:ring-0"
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="grid gap-3">
+                            <Label htmlFor="password">{t("label2")}</Label>
+                            <Input
+                                id="confirmpassword"
+                                type="password"
+                                placeholder="******"
+                                className="focus-visible:ring-0"
+                                onChange={(e) => setConfirmedPassword(e.target.value)}
+                                required
+                            />
                         </div>
                         <Button type="submit" className="w-full cursor-pointer">{t("button")}</Button>
-                        <div className="text-center text-sm">
-                            {t("donthaveacc")}{" "}
-                            <a href="#" className="underline underline-offset-4">
-                                {t("anchor")}
-                            </a>
-                        </div>
                     </div>
                     </div>
                 </form>
@@ -67,4 +73,4 @@ function ForgotPasswordPage({className, ...props }: React.ComponentProps<"div">)
   )
 }
 
-export default ForgotPasswordPage;
+export default page

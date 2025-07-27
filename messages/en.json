@@ -31,5 +31,12 @@
         "anchor": "Register now",
         "button": "Send reset link",
         "placeholder": "m@example.com"
+    },
+    "ResetPasswordPage": {
+        "label": "Password",
+        "label2": "Confirm password",
+        "title": "Used Cars",
+        "subtitle": "Fill out the form to change your password",
+        "button": "Change password"
     }
 }

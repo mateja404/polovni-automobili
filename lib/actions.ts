@@ -7,7 +7,7 @@ export const getProfile = async () => {
 }
 
 export const sendForgotPwEmail = async (email: string) => {
-    const response = await authFetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/changepw`, {
+    const response = await authFetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/submitemail`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

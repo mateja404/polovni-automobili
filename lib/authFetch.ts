@@ -12,7 +12,7 @@ export const authFetch = async (url: string | URL, options: any = {}) => {
         ...options.headers,
         Authorization: `Bearer ${session?.accessToken}`
     };
-    let response = await fetch(url, options);
+    let response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/protected`, options);
 
     if (response.status === 401) {
         if (!session?.refreshToken) throw new Error("refresh token not found");

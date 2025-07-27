@@ -31,5 +31,12 @@
         "anchor": "Registruj se",
         "button": "Pošalji link za resetovanje lozinke",
         "placeholder": "moje@ime.com"
+    },
+    "ResetPasswordPage": {
+        "label": "Lozinka",
+        "label2": "Potvrdi lozinku",
+        "title": "Polovni Automobili",
+        "subtitle": "Popunite formu da biste promenili lozinku",
+        "button": "Promeni lozinku"
     }
 }
