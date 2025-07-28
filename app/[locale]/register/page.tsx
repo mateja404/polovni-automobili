@@ -2,8 +2,10 @@ import { GalleryVerticalEnd } from "lucide-react";
 import { AuthForm } from "@/components/Auth-Form";
 import loginbg from "@/public/polovni.png";
 import Image from "next/image";
+import { getLocale } from "next-intl/server";
 
 export default function LoginPage() {
+  const locale = getLocale();
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -17,7 +19,7 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <AuthForm type={"register"} />
+            <AuthForm type={"register"} locale={locale}/>
           </div>
         </div>
       </div>

@@ -14,11 +14,12 @@ import Link from "next/link";
 import { Checkbox } from "./ui/checkbox";
 
 interface AuthFormProps {
+  locale: any
   type: "login" | "register"
   className?: React.ComponentProps<"form">
 }
 
-export function AuthForm({ type, className, ...props }: AuthFormProps) {
+export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
     const t = useTranslations("LoginPage");
     const registerT = useTranslations("RegisterPage");
     const router = useRouter();
@@ -31,23 +32,37 @@ export function AuthForm({ type, className, ...props }: AuthFormProps) {
       try {
           const res = await axios.post(`/api/login`, { email: email, password: password });
           toast.success(res.data.message);
-          router.push("/");
+          setTimeout(() => {
+            router.push("/");
+          }, 1200);
       } catch (error: any) {
-          console.log(error);
-          toast.error(error);
+          if (error.response.status === 401) {
+            const localeLanguage = locale.value;
+            const errorMessage = localeLanguage === '"rs"' ? "Pogrešan email ili lozinka" : "Invalid email or password";
+            toast.error(errorMessage);
+          }
       }
-    }
+    };
 
     async function registerUser(e: any) {
       e.preventDefault();
       try {
-          const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, { email: email, password: password });
-          toast.success(res.data.message);
+          const res = await axios.post(`/api/register`, { email: email, password: password });
+          const localeLanguage = locale.value;
+          const successMessage = localeLanguage === '"rs"' ? "Uspešna registracija" : "Successfully registered";
+          toast.success(successMessage);
+          setTimeout(() => {
+            router.push("/login");
+          }, 1200);
       } catch (error: any) {
-          console.log(error);
-          toast.error(error);
+          if (error.response.status === 409) {
+            console.log(locale.value)
+            const localeLanguage = locale.value;
+            const errorMessage = localeLanguage === '"rs"' ? "Korisnik već postoji" : "User already exist";
+            toast.error(errorMessage);
+          }
       }
-    }
+    };
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <Toaster/>

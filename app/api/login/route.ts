@@ -9,14 +9,13 @@ export async function POST(req: NextRequest) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
-  })
+  });
 
   if (!res.ok) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
   }
 
-  const data = await res.json()
-
+  const data = await res.json();
   await createSession({
     user: {
       id: data.user.id,
@@ -26,5 +25,5 @@ export async function POST(req: NextRequest) {
     refreshToken: data.refreshToken
   });
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ message: data.message });
 }

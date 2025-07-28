@@ -3,9 +3,11 @@ import { AuthForm } from "@/components/Auth-Form";
 import loginbg from "@/public/polovni.png";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 export default function LoginPage() {
   const t = useTranslations("LoginPage");
+  const locale = getLocale();
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -19,7 +21,7 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <AuthForm type={"login"} />
+            <AuthForm type={"login"} locale={locale}/>
           </div>
         </div>
       </div>
