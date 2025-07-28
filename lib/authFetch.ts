@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { refreshToken } from "./auth";
 import { getSession } from "./session";
 
@@ -15,7 +16,8 @@ export const authFetch = async (url: string | URL, options: any = {}) => {
     let response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/protected`, options);
 
     if (response.status === 401) {
-        if (!session?.refreshToken) throw new Error("refresh token not found");
+        redirect("/login");
+        return;
     }
 
     const newAccessToken = await refreshToken(session?.refreshToken!);
