@@ -2,7 +2,7 @@ import { authFetch } from "./authFetch"
 
 export const getProfile = async () => {
     const response = await authFetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/userinfo`);
-    const result = await response.json();
+    const result = await response?.json();
     return result;
 }
 
@@ -17,9 +17,9 @@ export const sendForgotPwEmail = async (email: string) => {
         })
     });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Server error: ${response.status} - ${errorText}`);
+    if (!response?.ok) {
+        const errorText = await response?.text();
+        throw new Error(`Server error: ${response?.status} - ${errorText}`);
     }
 
     const result = await response.json();
@@ -37,11 +37,11 @@ export const submitNewPassword = async (newPassword: string) => {
         })
     });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Server error: ${response.status} - ${errorText}`);
+    if (!response?.ok) {
+        const errorText = await response?.text();
+        throw new Error(`Server error: ${response?.status} - ${errorText}`);
     }
 
-    const result = await response.json();
+    const result = await response?.json();
     return result;
 }

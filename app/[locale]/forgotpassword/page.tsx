@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-function ForgotPasswordPage({className, ...props }: React.ComponentProps<"div">) {
+function ForgotPasswordPage() {
     const t = useTranslations("ForgotPasswordPage");
     const [email, setEmail] = useState<string>("");
 
