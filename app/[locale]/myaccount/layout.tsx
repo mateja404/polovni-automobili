@@ -8,13 +8,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   const translations: Record<string, string> = {
-    en: "Forgot Password",
-    rs: "Zaboravljena lozinka",
+    en: "My account",
+    rs: "Moj nalog",
   };
 
-  const title = translations[locale] || "Forgot Password";
+  const translationsDesc: Record<string, string> = {
+    en: "Manage your account - create and delete your ads",
+    rs: "Kontroliši svoj nalog - kreiraj i briši svoje oglase",
+  };
 
-  return { title };
+  const title = translations[locale] || "My account";
+  const description = translationsDesc[locale] || "My account";
+
+  return { title, description };
 }
 
 export default function ForgotPasswordLayout({ children }: { children: React.ReactNode }) {

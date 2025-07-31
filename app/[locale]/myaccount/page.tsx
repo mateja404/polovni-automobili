@@ -1,15 +1,12 @@
 import React from 'react';
-import { getSession } from '@/lib/session';
-import Appbar from '@/components/appbar';
-import { getProfile } from '@/lib/actions';
+import MyAccountPage from '@/components/MyAccountPage';
+import { getLocale } from "next-intl/server";
 
 const page = async () => {
-    const session = await getSession();
-    const res = await getProfile();
+    const locale = await getLocale();
   return (
     <>
-        <Appbar/>
-        <p>{JSON.stringify(res)}</p>
+       <MyAccountPage locale={locale}/>
     </>
   )
 }

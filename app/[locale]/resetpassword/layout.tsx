@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 
-// Define the correct props type for your generateMetadata function
 type Props = {
-  params: Promise<{ locale: string }>; // <-- This is now a Promise
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // Await the params promise to get the actual parameters
-  const { locale } = await params; // <-- Use await here
+  const { locale } = await params;
 
   const translations: Record<string, string> = {
-    en: "Forgot Password",
-    rs: "Zaboravljena lozinka",
+    en: "Reset Password",
+    rs: "Resetovanje lozinke",
   };
 
-  const title = translations[locale] || "Forgot Password";
+  const title = translations[locale] || "Reset Password";
 
   return { title };
 }

@@ -38,5 +38,18 @@
         "title": "Polovni Automobili",
         "subtitle": "Popunite formu da biste promenili lozinku",
         "button": "Promeni lozinku"
+    },
+    "Sidebar": {
+        "userRole": "Korisnik",
+        "adminRole": "Admin",
+        "firstTitle": "ANALITIKA",
+        "secondTitle": "NALOG",
+        "thirdTitle": "RADNI PROSTOR",
+        "firstLabel": "Pregled",
+        "secondLabel": "Moj Profil",
+        "thirdLabel": "Plaćanje",
+        "fourthLabel": "Podešavanja",
+        "fifthLabel": "Moji Oglasi",
+        "logOutButton": "Izloguj se"
     }
 }

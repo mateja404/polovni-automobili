@@ -38,5 +38,18 @@
         "title": "Used Cars",
         "subtitle": "Fill out the form to change your password",
         "button": "Change password"
+    },
+    "Sidebar": {
+        "userRole": "User",
+        "adminRole": "Admin",
+        "firstTitle": "ANALYTICS",
+        "secondTitle": "ACCOUNT",
+        "thirdTitle": "WORKSPACE",
+        "firstLabel": "Overview",
+        "secondLabel": "My Profile",
+        "thirdLabel": "Billing",
+        "fourthLabel": "General Settings",
+        "fifthLabel": "My Ads",
+        "logOutButton": "Log Out"
     }
 }

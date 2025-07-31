@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Checkbox } from "./ui/checkbox";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface AuthFormProps {
   locale: any
@@ -26,9 +27,21 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
     const [showPass, setShowPass] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [passedCaptcha, setPassedCaptcha] = useState<boolean>(false);
 
     async function loginUser(e: any) {
       e.preventDefault();
+      if (!passedCaptcha) {
+          const localeLanguage = locale.value;
+          const errorMessage = localeLanguage === '"rs"' ? "Captcha je obavezna" : "Verify captcha";
+          toast.error(errorMessage);
+          return;
+      } else if (!email || !password) {
+          const localeLanguage = locale.value;
+          const errorMessage = localeLanguage === '"rs"' ? "Sva polja su obavezna" : "Please fill all fields";
+          toast.error(errorMessage);
+          return;
+      }
       try {
           const res = await axios.post(`/api/login`, { email: email, password: password });
           toast.success(res.data.message);
@@ -63,6 +76,12 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
           }
       }
     };
+
+    async function onChnage() {
+        setPassedCaptcha(true);
+    }
+
+    console.log(process.env.NEXT_PUBLIC_RECAPTCHA_KEY)
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <Toaster/>
@@ -78,7 +97,7 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
         <div className="grid gap-3 relative">
           <div className="flex items-center">
             <Label htmlFor="password">{t("passwordLabel")}</Label>
-            {type === "login" ? <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">{t("forgotPasswordAnchor")}</a> : ""}
+            {type === "login" ? <a href="/forgotpassword" className="ml-auto text-sm underline-offset-4 hover:underline">{t("forgotPasswordAnchor")}</a> : ""}
           </div>
           <Input id="password" type={showPass ? "text" : "password"} placeholder="******" className="focus-visible:ring-0" onChange={(e) => setPassword(e.target.value)} required />
           {!showPass ? <Eye className="absolute right-3 cursor-pointer bottom-0 w-[17px] -translate-y-1" onClick={() => setShowPass(true)}/> : <EyeOff className="absolute right-3 cursor-pointer bottom-0 w-[17px] -translate-y-1" onClick={() => setShowPass(false)}/>}
@@ -95,6 +114,10 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
           </div>
         </div>
         ) : ""}
+        <ReCAPTCHA
+          sitekey="6Lfpf5UrAAAAAH3grJHFvav7V5DzgUdPZk-TK7_Q"
+          onChange={onChnage}
+        />
         {type === "login" ? <Button type="submit" className="w-full cursor-pointer" onClick={(e) => loginUser(e)}>{t("loginButton")}</Button> : <Button type="submit" className="w-full cursor-pointer" onClick={(e) => registerUser(e)}>{registerT("registerButton")}</Button>}
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">{t("orcontinuetext")}</span>

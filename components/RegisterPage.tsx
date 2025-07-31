@@ -15,7 +15,7 @@ export default function RegisterPage({ locale }: any) {
   useEffect(() => {
         setTimeout(() => {
           setIsLoading(false);
-        }, 2500);
+        }, 2000);
       }, [router]);
   
       if (isLoading) {
