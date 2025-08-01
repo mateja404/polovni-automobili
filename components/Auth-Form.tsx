@@ -28,6 +28,8 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passedCaptcha, setPassedCaptcha] = useState<boolean>(false);
+    const [captchaToken, setCaptchaToken] = useState<string>("");
+
 
     async function loginUser(e: any) {
       e.preventDefault();
@@ -41,9 +43,14 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
           const errorMessage = localeLanguage === '"rs"' ? "Sva polja su obavezna" : "Please fill all fields";
           toast.error(errorMessage);
           return;
+      } else if (!captchaToken) {
+          const localeLanguage = locale.value;
+          const errorMessage = localeLanguage === '"rs"' ? "Captcha je obavezna" : "Verify captcha";
+          toast.error(errorMessage);
+          return;
       }
       try {
-          const res = await axios.post(`/api/login`, { email: email, password: password });
+          const res = await axios.post(`/api/login`, { email: email, password: password, captchaToken: captchaToken });
           toast.success(res.data.message);
           setTimeout(() => {
             router.push("/");
@@ -54,13 +61,34 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
             const errorMessage = localeLanguage === '"rs"' ? "Pogrešan email ili lozinka" : "Invalid email or password";
             toast.error(errorMessage);
           }
+          if (error.response.status === 403) {
+              const localeLanguage = locale.value;
+              const errorMessage = localeLanguage === '"rs"' ? "Captcha nije validna" : "Invalid captcha";
+              toast.error(errorMessage);
+          }
       }
-    };
+    }
 
     async function registerUser(e: any) {
       e.preventDefault();
+      if (!passedCaptcha) {
+        const localeLanguage = locale.value;
+        const errorMessage = localeLanguage === '"rs"' ? "Captcha je obavezna" : "Verify captcha";
+        toast.error(errorMessage);
+        return;
+      } else if (!email || !password) {
+        const localeLanguage = locale.value;
+        const errorMessage = localeLanguage === '"rs"' ? "Sva polja su obavezna" : "Please fill all fields";
+        toast.error(errorMessage);
+        return;
+      } else if (!captchaToken) {
+        const localeLanguage = locale.value;
+        const errorMessage = localeLanguage === '"rs"' ? "Captcha je obavezna" : "Verify captcha";
+        toast.error(errorMessage);
+        return;
+      }
       try {
-          const res = await axios.post(`/api/register`, { email: email, password: password });
+          const res = await axios.post(`/api/register`, { email: email, password: password, captchaToken });
           const localeLanguage = locale.value;
           const successMessage = localeLanguage === '"rs"' ? "Uspešna registracija" : "Successfully registered";
           toast.success(successMessage);
@@ -74,14 +102,18 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
             const errorMessage = localeLanguage === '"rs"' ? "Korisnik već postoji" : "User already exist";
             toast.error(errorMessage);
           }
+          if (error.response.status === 403) {
+              const localeLanguage = locale.value;
+              const errorMessage = localeLanguage === '"rs"' ? "Captcha nije validna" : "Invalid captcha";
+              toast.error(errorMessage);
+          }
       }
-    };
-
-    async function onChnage() {
-        setPassedCaptcha(true);
     }
 
-    console.log(process.env.NEXT_PUBLIC_RECAPTCHA_KEY)
+    async function onChange(value: any) {
+        setPassedCaptcha(true);
+        setCaptchaToken(value);
+    }
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <Toaster/>
@@ -116,7 +148,7 @@ export function AuthForm({ locale, type, className, ...props }: AuthFormProps) {
         ) : ""}
         <ReCAPTCHA
           sitekey="6Lfpf5UrAAAAAH3grJHFvav7V5DzgUdPZk-TK7_Q"
-          onChange={onChnage}
+          onChange={onChange}
         />
         {type === "login" ? <Button type="submit" className="w-full cursor-pointer" onClick={(e) => loginUser(e)}>{t("loginButton")}</Button> : <Button type="submit" className="w-full cursor-pointer" onClick={(e) => registerUser(e)}>{registerT("registerButton")}</Button>}
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
